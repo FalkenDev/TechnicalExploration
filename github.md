@@ -18,7 +18,7 @@ Där dev är den branchen som du vill hämta all data ifrån.
 
 ## Branches
 
-![Branches](assets/branches.png "branches")
+![Branches](assets/github/branches.png "branches")
 
 Att använda flera branches kommer att underlätta för ett team vilka featuters man implementerar. Även riskerar man inte att skada main branchen där programmet funkar. I våran grupp i V-Team grupp 1 har vi satt upp 2 branches som är de stora branches medans när vi implementerar feautres så skapar vi nya branches som därefter tas bort när de är klara, godkända av Reviewers och mergade till dev branchen.
 
@@ -89,16 +89,17 @@ Därefter så kan du börja göra nästa implementation med att skapa en ny bran
 Att sätta regler på branches kan vara väldigt bra. I våran grupp har vi exempelvis regler i både main och dev branchen där man måste exempelvis skapa en pull request innan det går att merga till branchen. Även att man inte kan kringå ovanstående inställningar. I just main branchen har vi den låst så att det inte går att göra någon pull request för att det inte ska bli något fel. Den sätts sedan på när dev branchen ska merga till main branchen när vi ska göra en del release av projektet. Vi har även satt default branchen till dev för att det ska vara lättare att göra git pull och även att pull requesten är förinställda på att merga till dev och inte main branchen. Det går självklart lägga på striktare regler i sina branches men just nu kör vårat team på lite lättare i början och kanske gör det striktare längre fram under kursens gång.
 
 Nedre bilden visar vilken branch som är satt på default och vilka branches som har protection rules på.
-![Default branches](assets/branch1.png "Default branches")
+![Default branches](assets/github/branch1.png "Default branches")
 
 Här visar jag protection rules för branch dev. I denna bracnh måste man göra en pull request för att man ska kunna merga sin branch till default branchen main. Även har jag satt att man inte kan bypassa pull request.
 
-![Branch rules](assets/branchRule.png "Branch rules")
+![Branch rules](assets/github/branchRule.png "Branch rules")
 
 ## Webhooks
 
 Webhooks är väldigt användbart om man ska exempelvis använda sig utav Discord för sitt team. Detta hjälper med att exempelvis en Reviewer ska kolla på det någon annan har pushat. Även att man får notis om att nu kanske man ska göra en git pull för att hämta de nya filerna som har skapats. Github Webhooks skickar en notis till github serven till den chatten man har lagt in att boten ska skicka notiser till. Hur det kan se ut:
-![Discord webhook](assets/webhook.png "Discord webhook")
+
+![Discord webhook](assets/github/webhook.png "Discord webhook")
 
 Hur man sätter upp detta rekomenderar jag att kolla på denna tutorial från jagrosh: https://gist.github.com/jagrosh/5b1761213e33fc5b54ec7f6379034a22
 

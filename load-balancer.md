@@ -6,7 +6,7 @@ Med detta kom vi fram till att mer än 10 000 request i minuten kommer att göra
 
 Vi började att göra en benchmark test för REST APIet med ApacheBench där vi testar hur långt tid det tar att göra 100 000 request till en sida på localhost som visar dokumentationen för REST APIet.
 
-<img src="assets/benchmark1.png" alt="Benchmark 1" width="400"/>
+<img src="assets/loadBalancer/benchmark1.png" alt="Benchmark 1" width="400"/>
 
 Här kan vi läsa av att det tog 28.074 sekunder för att alla request ska gå igenom när man testade att göra 100 000 förfrågningar där 1000 förfrågningar görs åt gången.
 
@@ -16,7 +16,7 @@ Vi kom fram till att använda en Load Balancer som fungerar som en trafikpolis s
 
 Bild på Benchmark när Cluster modulen används i REST APIet.
 
-<img src="assets/benchmark2.png" alt="Benchmark 2" width="400"/>
+<img src="assets/loadBalancer/benchmark2.png" alt="Benchmark 2" width="400"/>
 
 ## NodeJS egna Cluster Modul
 
@@ -31,7 +31,7 @@ Masterprocessen skapar en lyssningskontakt och skickar den till intresserade arb
 
 Nedan visar jag en bild där det finns en primary (Masterprocessen) och ett antal arbetare som jobbar på samma port för att ta hand om alla förfråningar.
 
-<img src="assets/worker.png" alt="workers" width="400"/>
+<img src="assets/loadBalancer/worker.png" alt="workers" width="400"/>
 
 ### Använda NodeJS CLuster Module
 
