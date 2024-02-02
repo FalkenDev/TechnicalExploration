@@ -1,106 +1,88 @@
-# Hur man använder github i ett Team
+# How to Use GitHub in a Team
 
-## Sätta upp projektet i sin lokala mapp
+## Setting Up the Project in Your Local Folder
 
-Det första du behöver göra är att skapa en mapp i din lokala dator som du vill använda för ditt repository. Därefter behöver du initiera mappen med git och koppla den till repot och även sätta en main branch.
+### Solution 1
+
+The first thing you need to do is create a folder on your local computer that you want to use for your repository. Then, you need to initialize the folder with git, link it to the repository, and set a main branch.
 
 <pre>git init</pre>
-<pre>git remote add origin git@github.com:<b>Repot här</b></pre>
+<pre>git remote add origin git@github.com:<b>YourRepositoryHere</b></pre>
 <pre>git branch -M dev</pre>
 
-Här sätter jag main branchen till dev då det är där alla implementationer kommer att skickas till - se mer i titeln **Branches** om varför jag har döpt den till dev.
+I set the main branch to `dev` because that's where all implementations will be sent. See the **Branches** section for why I named it `dev`.
 
-Om det finns redan saker på main branchen eller i en annan branch som du ska använda dig utav, så behöver du hämta sakerna från den branchen så inte det blir commitments som är bakom. Detta gör du med pull:
+If there's already content on the main branch or another branch that you need to use, you'll need to fetch the content from that branch to avoid behind commits. Do this with pull:
 
 <pre>git pull origin <b>dev</b></pre>
 
-Där dev är den branchen som du vill hämta all data ifrån.
+Where `dev` is the branch you want to fetch all data from.
+
+### Solution 2
+
+You can also just clone the repo you have created in github and use it
+
+<pre>git clone git@github.com:<b>YourRepositoryHere</b></pre>
+<pre>git branch -M dev</pre>
 
 ## Branches
 
+Using multiple branches facilitates feature implementation within a team and avoids damaging the main branch where the program is functional. In our group, V-Team Group 1, we have set up 2 main branches, while feature implementations are done in new branches that are deleted once completed, reviewed, and merged into the `dev` branch.
+
 ![Branches](assets/github/branches.png "branches")
 
-Att använda flera branches kommer att underlätta för ett team vilka featuters man implementerar. Även riskerar man inte att skada main branchen där programmet funkar. I våran grupp i V-Team grupp 1 har vi satt upp 2 branches som är de stora branches medans när vi implementerar feautres så skapar vi nya branches som därefter tas bort när de är klara, godkända av Reviewers och mergade till dev branchen.
+### The Branches We Use:
 
-### De olika branches vi använder oss utav:
+- `main` (For major releases from the `dev` branch, ensuring runnable code with no major bugs)
+- `dev` (For implementing features and fixing bugs)
+- Feature or Backlog branches - For each feature being implemented, e.g., a "setup" branch for initializing the program. These branches are removed after pushing your project and creating a Pull Request reviewed and merged into the `dev` branch if everything is correct and GitHub Actions shows no warnings.
 
-- main (Där de stora releaserna sker från branch dev. Alltså att det går att köras och inga större buggar finns)
-- dev (Där man implementerar feautersen och fixar buggar)
-- Backlog branch - Där man skapar en nya branch för varje feautre som implementeras exempelvis: branch "setup" som vi ser på bilden, är en branch där vi sätter upp starten för programmet. Dessa branches kommer att tas bort efter att man har pushat sitt projekt och gjort en Pull Request som sedan en Reviewer kommer att kolla på implementationen och därefter merga den till dev branshen om allt ser bra ut och GitHuib Actions inte ger några varningar.
+### How to Create a Branch for Each Feature:
 
-### Hur skapar man en branch vid varje feature?
+Create a branch for each feature implementation:
 
-Hur man skapar branch för varje feauture man ska implementera gör man:
+<pre> git checkout -b featureName </pre>
 
-<pre>git checkout -b <b>sidebar</b></pre>
+Where `featureName` is the name of the feature being implemented. The `-b` flag is a convenience that tells Git to run `git branch` before `git checkout`.
 
-Där **sidebar** är branchens namn som är en feautre som ska implementeras.
-Alternativet **-b** är en bekvämlighetsflagga som säger åt Git att köra git branch innan git checkout
-< new-branch >.
+After creating a new branch for the feature implementation, you're ready to start coding. Once done:
 
-Efter att du har skapat en ny branch där du ska implementera featuren som är du good to go att börja koda just den implementationen. När du är klar gör du:
+<pre>git status
+git add "files you've changed"
+git commit -m "Description of changes"
+git push -u origin featureName</pre>
 
-<pre>git status</pre>
-
-För att dubbelchecka att du är i den branchen och därefter lägger du till det du har gjort och pushar det:
-
-<pre>git add <b>"de filerna du vill skicka upp / har ändrat till github"</b></pre>
-<pre>git commit -m <b>"En kommentar vad du har gjort för något för just den filen"</b></pre>
-
-Därefter ska du pusha den branshen med:
-
-<pre>git push -u origin sidebar</pre>
-
-Där **sidebar** är den branchen du vill pusha.
-Därefter gör du git pull igen för att kolla om något har ändrats.
+Fetch updates from `dev` to ensure you're up to date:
 
 <pre>git pull origin dev</pre>
 
-Därefter ska du skapa en pull request genom att gå in på den länken som står efter att du har pushat repot. Om du inte hittar länken så går du in på github och in i din branch.
+Then, create a pull request by following the link provided after pushing, or manually on GitHub.
 
-När du är inne på rätt sida så tycker du på knappen:
-**compare & pull request**
+Title your pull request with the feature and backlog ID, e.g., _#3 Implemented sidebar_, and provide a brief description. After review, if the feature is complete, delete the branch:
 
-Där skriver du en titel vad det är för något du har gjort samt id på backlogen exempelvis:
+<pre>
+git checkout dev
+git pull origin dev
+git branch -D featureName
+</pre>
 
-_#3 Implemented sidebar_
-
-Och sedan skriver en liten snabb text vad det är du har gjort så att reviewern kan kolla att det inte överstyr / skadar något annat och därefter trycker på knappen:
-
-**Create pull request**
-
-Om backlogen är helt klar så behöver du ta bort branchen på din dator efter att du har pushat och gjort en pull request. Hur du gör detta är att du går tillbaks till branch dev som är main branchen för devolopment ( Alla filer går dit ) och gör:
-
-<pre>git checkout dev
-git pull origin dev</pre>
-
-För att ta bort branshen där du implementerade funktionen från backlog id så gör du exempelvis:
-
-<pre>git branch -D sidebar</pre>
-
-där **-D** är delete och **sidebar** är branchen.
-
-Därefter så kan du börja göra nästa implementation med att skapa en ny branch.
-
-**_OPS glöm ej göra git pull när någon har mergat det du har implementerat / någon annan har implementerat så att du alltid har de updaterade filerna som är skapade._**
+Remember to pull updates regularly, especially after merges, to keep your local repository up to date.
 
 ## Settings
 
-Att sätta regler på branches kan vara väldigt bra. I våran grupp har vi exempelvis regler i både main och dev branchen där man måste exempelvis skapa en pull request innan det går att merga till branchen. Även att man inte kan kringå ovanstående inställningar. I just main branchen har vi den låst så att det inte går att göra någon pull request för att det inte ska bli något fel. Den sätts sedan på när dev branchen ska merga till main branchen när vi ska göra en del release av projektet. Vi har även satt default branchen till dev för att det ska vara lättare att göra git pull och även att pull requesten är förinställda på att merga till dev och inte main branchen. Det går självklart lägga på striktare regler i sina branches men just nu kör vårat team på lite lättare i början och kanske gör det striktare längre fram under kursens gång.
+Setting rules on branches, such as requiring pull requests for merges, can be beneficial. In our group, we've configured rules for both `main` and `dev` branches, including locking `main` to prevent direct pushes and setting `dev` as the default branch for easier pull requests and updates. You can set the rules in Github Settings in the Repo.
 
-Nedre bilden visar vilken branch som är satt på default och vilka branches som har protection rules på.
+The bottom image shows which branch is set to default and which branches have protection rules on.
 ![Default branches](assets/github/branch1.png "Default branches")
 
-Här visar jag protection rules för branch dev. I denna bracnh måste man göra en pull request för att man ska kunna merga sin branch till default branchen main. Även har jag satt att man inte kan bypassa pull request.
+Here I use protection rules for branch dev. In this bracnh you have to make a pull request to be able to merge your branch to the default branch main. I have also set that you cannot bypass the pull request.
 
 ![Branch rules](assets/github/branchRule.png "Branch rules")
 
 ## Webhooks
 
-Webhooks är väldigt användbart om man ska exempelvis använda sig utav Discord för sitt team. Detta hjälper med att exempelvis en Reviewer ska kolla på det någon annan har pushat. Även att man får notis om att nu kanske man ska göra en git pull för att hämta de nya filerna som har skapats. Github Webhooks skickar en notis till github serven till den chatten man har lagt in att boten ska skicka notiser till. Hur det kan se ut:
+Webhooks are useful for integrating with tools like Discord for team notifications, such as reviews or updates. They send notifications from GitHub to the specified Discord channel. For setting up, refer to tutorials like jagrosh's guide on GitHub webhooks: https://gist.github.com/jagrosh/5b1761213e33fc5b54ec7f6379034a22
 
 ![Discord webhook](assets/github/webhook.png "Discord webhook")
 
-Hur man sätter upp detta rekomenderar jag att kolla på denna tutorial från jagrosh: https://gist.github.com/jagrosh/5b1761213e33fc5b54ec7f6379034a22
-
-**_OPS! Mer info om hur man jobbar med Github som ett team kommer läggas in i denna markdown filen vid mån av tid_**
+**_Note: More information on working with GitHub as a team will be added to this markdown file as time permits._**
